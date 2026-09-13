@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Networking Lab &middot; Mini Web Application</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="hero">
+        <img src="/images/logo.png" alt="Networking Lab logo" class="logo">
+        <div>
+            <h1>Networking Lab &middot; Mini Web Application</h1>
+            <p>One sequential Java socket server. Three hardcoded services. No frameworks.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Greeting service</h2>
+            <form id="greeting-form">
+                <label for="greeting-name">Your name</label>
+                <input type="text" id="greeting-name" name="name" placeholder="Ada" required>
+                <button type="submit">Get greeting</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Square service</h2>
+            <form id="square-form">
+                <label for="square-value">A number</label>
+                <input type="text" inputmode="decimal" id="square-value" name="value" placeholder="7" required>
+                <button type="submit">Get square</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Server time service</h2>
+            <button type="button" id="time-button">Get server time</button>
+        </section>
+
+        <section class="card">
+            <h2>Slow service <span class="tag">not graded &middot; demo only</span></h2>
+            <p>Not one of the four required services. It only exists so Section 6.2's
+                "two browser windows" experiment can be reproduced with nothing but a click:
+                open this page in a second window and request anything else while this one
+                is still pending.</p>
+            <form id="slow-form">
+                <label for="slow-seconds">Seconds to block (0&ndash;30)</label>
+                <input type="text" inputmode="numeric" id="slow-seconds" name="seconds" placeholder="5" required>
+                <button type="submit">Trigger slow request</button>
+            </form>
+        </section>
+
+        <section class="status" aria-live="polite">
+            <p id="loading" hidden>Loading&hellip;</p>
+            <pre id="result" hidden></pre>
+            <p id="error" class="error" hidden></p>
+        </section>
+
+        <section class="card">
+            <h2>Static resources</h2>
+            <p>These two images are served as bytes by the same Java server:</p>
+            <div class="gallery">
+                <img src="/images/logo.png" alt="Sample PNG served by the server">
+                <img src="/images/banner.jpg" alt="Sample JPEG served by the server">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p id="health-indicator">Checking server health&hellip;</p>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>

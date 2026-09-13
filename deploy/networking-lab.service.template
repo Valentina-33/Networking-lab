@@ -1,0 +1,34 @@
+# systemd unit template for running the Networking Lab server as a managed
+# background service on the EC2 instance, so it starts predictably, keeps
+# running after the SSH/Session Manager session closes, and can be stopped
+# cleanly with `systemctl stop`.
+#
+# This is a TEMPLATE: copy it to /etc/systemd/system/networking-lab.service
+# on the instance and replace every <PLACEHOLDER> before use. It contains no
+# secrets and is safe to keep in version control.
+#
+# Usage on the instance (after editing placeholders):
+#   sudo cp networking-lab.service /etc/systemd/system/networking-lab.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now networking-lab
+#   sudo systemctl status networking-lab
+#   journalctl -u networking-lab -f          # follow logs
+#   sudo systemctl stop networking-lab       # stop cleanly
+
+[Unit]
+Description=Networking Lab - sequential HTTP mini web application
+After=network.target
+
+[Service]
+Type=simple
+User=<SERVICE_LINUX_USER>
+WorkingDirectory=<APP_DIR>
+Environment=PORT=<APP_PORT>
+ExecStart=<JAVA_HOME>/bin/java -jar <APP_DIR>/networking-lab-1.0.0.jar
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:/var/log/networking-lab/app.log
+StandardError=append:/var/log/networking-lab/app.log
+
+[Install]
+WantedBy=multi-user.target
